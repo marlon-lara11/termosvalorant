@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Termos de Compra - Contas Valorant</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="termos-box">
+        <h1>Termos de Compra</h1>
+        <h2>Termos e Condições de Compra</h2>
+
+        <h3>1. Sobre a Conta</h3>
+        <p>1.1. Esta conta é de revenda e foi obtida de terceiros, sendo entregue ao comprador após verificação de sua integridade e funcionalidade.</p>
+        <p>1.2. Não possui informações de recuperação, como dados originais de criação (e-mail, data de nascimento ou outras informações do proprietário anterior).</p>
+        <p>1.3. Todas as contas disponibilizadas passam por uma análise prévia para assegurar que estejam em perfeito estado de funcionamento, sem histórico de bans ou restrições no momento da venda.</p>
+
+        <h3>2. Recomendações ao Comprador</h3>
+        <p>2.1. Alteração de Dados: É de extrema importância que o comprador proceda com a alteração de todos os dados de acesso (e-mail, senha, perguntas de segurança, etc.) imediatamente após a conclusão da entrega da conta.</p>
+        <p>2.2. Responsabilidade Total: Após a conclusão da alteração dos dados, toda e qualquer responsabilidade sobre a gestão, segurança e possíveis ocorrências futuras será exclusivamente do comprador.</p>
+        <p>2.3. Recomendamos que o comprador utilize um e-mail seguro e único para vincular à conta adquirida, garantindo maior proteção contra acessos não autorizados.</p>
+
+        <h3>3. Segurança, Riscos e Garantia</h3>
+        <p>3.1. Natureza do Produto: item de revenda e não possuimos os dados de recuperação.</p>
+        <p>3.2. Garantia de 7 Dias: Garantimos a conta por 7 dias a partir da data de entrega. Caso a conta apresente problemas (exceto por banimentos), o comprador terá direito ao reembolso.</p>
+        <p>3.3. Reembolsos: Em casos onde a conta não for entregue ou seja diferente do produto adquirido, o comprador terá direito a reembolso integral.</p>
+
+        <h3>4. Confiança no Processo</h3>
+        <p>4.1. O processo de entrega da conta é totalmente automatizado e registrado, proporcionando maior agilidade e segurança para ambas as partes.</p>
+        <p>4.2. Todas as contas entregues são fornecidas no estado descrito no anúncio, sem alterações ou limitações desconhecidas.</p>
+        <p>4.3. O suporte estará disponível para atender quaisquer dúvidas sobre a compra, porém não será responsável por ocorrências relacionadas ao uso futuro da conta.</p>
+
+        <h3>5. Observações Finais</h3>
+        <p>5.1. Ao realizar a compra, o cliente declara estar ciente de todas as condições e termos apresentados neste documento.</p>
+        <p>5.2. A responsabilidade pela segurança, gestão e preservação do acesso à conta após a entrega passa a ser inteiramente do comprador.</p>
+        <p>5.3. Este termo está sujeito a alterações futuras, e o cliente é responsável por consultar a versão mais recente disponível no momento da compra.</p>
+
+        <h3>6. Privacidade e Segurança</h3>
+        <p>6.1. Garantimos que os dados pessoais do comprador não serão compartilhados com terceiros e serão usados apenas para o processo de entrega da conta.</p>
+        <p>6.2. O nome do comprador não será utilizado ou divulgado em nenhuma circunstância.</p>
+
+        <form id="termosForm">
+            <div>
+                <label for="nome">Seu nome completo:</label>
+                <input type="text" id="nome" name="nome" required>
+            </div>
+            <div>
+                <input type="checkbox" id="aceito" name="aceito" required>
+                <label for="aceito">Eu concordo com os termos de compra</label>
+            </div>
+            <div>
+                <button type="submit">Concordar e Enviar</button>
+            </div>
+        </form>
+        
+        <script>
+            const form = document.getElementById('termosForm');
+        
+            form.addEventListener('submit', async (event) => {
+                event.preventDefault(); // Evita recarregar a página
+        
+                const nome = document.getElementById('nome').value;
+                const aceito = document.getElementById('aceito').checked;
+        
+                if (!aceito) {
+                    alert('Você precisa concordar com os termos!');
+                    return;
+                }
+        
+                // Envia os dados para o backend
+                const response = await fetch('http://localhost:3000/save-response', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ nome, aceito })
+                });
+        
+                if (response.ok) {
+                    alert('Resposta enviada com sucesso!');
+                } else {
+                    alert('Erro ao enviar resposta.');
+                }
+            });
+        </script>        
+    </div>
+</body>
+</html>
